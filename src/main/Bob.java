@@ -85,6 +85,18 @@ public class Bob {
                         }
                     }
                     break;
+                case "delete":
+                    if (parts.length < 2) {
+                        Bob.printer("Usage: delete <index>\n");
+                    } else {
+                        try {
+                            int index = Integer.valueOf(parts[1]);
+                            tasks.deleteItem(index);
+                        } catch (NumberFormatException e) {
+                            Bob.printer("Type in a number in the range\n");
+                        }
+                    }
+                    break;
                 default:
                     printBack(input);
             }

@@ -35,6 +35,18 @@ public class List {
         }
     }
 
+    public void deleteItem(int index) {
+        if (index > 0 && index <= taskList.size()) {
+            Task item = this.taskList.get(index - 1);
+            this.taskList.remove(index - 1);
+            Bob.printer("Alright! Task removed:\n"
+                    + item + "\n"
+                    + "There are now " + taskList.size() + " task(s) in the list.\n");
+        } else {
+            Bob.printer("Invalid index!\n");
+        }
+    }
+
     public void printList() {
         Bob.printer(this.toString());
     }
