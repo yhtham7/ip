@@ -7,6 +7,8 @@ public class Bob {
         Scanner scanner = new Scanner(System.in);
         String input;
 
+        List tasks = new List();
+
         Bob.PrintStart();
 
         while (true) {
@@ -15,9 +17,10 @@ public class Bob {
             if (input.equalsIgnoreCase("bye")) {
                 Bob.PrintEnd();
                 break;
-            }
-            else {
-                PrintBack(input);
+            } else if (input.equalsIgnoreCase("list")) {
+                tasks.printList();
+            } else {
+                tasks.addItem(input);
             }
         }
     }
