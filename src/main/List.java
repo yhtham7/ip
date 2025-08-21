@@ -24,10 +24,10 @@ public class List {
         }
     }
 
-    public void unMarkItem(int index) {
+    public void unmarkItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
-            thing.mark();
+            thing.unmark();
             Bob.printer("Ok the task is no longer complete!\n"
                     + thing + "\n");
         } else {

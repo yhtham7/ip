@@ -4,11 +4,6 @@ import java.util.Scanner;
 import java.util.regex.*;
 
 public class Bob {
-    enum Action {
-        ADD,
-        MARK,
-        UNMARK
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -32,18 +27,26 @@ public class Bob {
             switch (cmd) {
                 case "mark":
                     if (parts.length < 2) {
-                        System.out.println("Usage: mark <index>");
+                        Bob.printer("Usage: mark <index>\n");
                     } else {
-                        int index = Integer.valueOf(parts[1]);
-                        tasks.markItem(index);
+                        try {
+                            int index = Integer.valueOf(parts[1]);
+                            tasks.markItem(index);
+                        } catch (NumberFormatException e) {
+                            Bob.printer("Type in a number in the range\n");
+                        }
                     }
                     break;
                 case "unmark":
                     if (parts.length < 2) {
-                        System.out.println("Usage: unmark <index>");
+                        Bob.printer("Usage: unmark <index>\n");
                     } else {
-                        int index = Integer.valueOf(parts[1]);
-                        tasks.unMarkItem(index);
+                        try {
+                            int index = Integer.valueOf(parts[1]);
+                            tasks.unmarkItem(index);
+                        } catch (NumberFormatException e) {
+                            Bob.printer("Type in a number in the range\n");
+                        }
                     }
                     break;
                 case "list":
@@ -51,58 +54,45 @@ public class Bob {
                     break;
                 case "todo":
                     if (parts.length < 2) {
-                        System.out.println("Usage: todo <task>");
+                        Bob.printer("Usage: todo <task>\n");
                     } else {
                         tasks.addItem(new ToDos(parts[1]));
                     }
                     break;
                 case "deadline":
                     if (parts.length < 2) {
-                        System.out.println("Usage: deadline <task> /by <time>");
+                        Bob.printer("Usage: deadline <task> /by <time>\n");
                     } else {
                         Pattern pattern = Pattern.compile("^deadline (.+) /by (.+)$");
                         Matcher m = pattern.matcher(input);
                         if (m.matches()) {
                             tasks.addItem(new Deadlines(m.group(1).trim(), m.group(2).trim()));
                         } else {
-                            System.out.println("Usage: deadline <task> /by <time>");
+                            Bob.printer("Usage: deadline <task> /by <time>\n");
                         }
                     }
                     break;
                 case "event":
                     if (parts.length < 2) {
-                        System.out.println("Usage: event <task> /from <startTime> /to <endTime>");
+                        Bob.printer("Usage: event <task> /from <startTime> /to <endTime>\n");
                     } else {
                         Pattern pattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
                         Matcher m = pattern.matcher(input);
                         if (m.matches()) {
                             tasks.addItem(new Events(m.group(1).trim(), m.group(2).trim(), m.group(3).trim()));
                         } else {
-                            System.out.println("Usage: event <task> /from <startTime> /to <endTime>");
+                            Bob.printer("Usage: event <task> /from <startTime> /to <endTime>\n");
                         }
                     }
                     break;
                 default:
                     printBack(input);
             }
-
-            /*
-            } else if (input.equalsIgnoreCase("list")) {
-                tasks.printList();
-            } else {
-                tasks.addItem(input);
-            }
-
-             */
         }
     }
 
-    protected static void actions(String input) {
-
-    }
-
     protected static void printBack(String input) {
-        Bob.printer(input + "\n");
+        Bob.printer( "\"" + input + "\" What does that mean? \n");
     }
 
     protected static void printStart() {

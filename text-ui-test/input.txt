@@ -5,6 +5,10 @@ event third thingy /from mon 2000 /to mon 2359
 mark 1
 mark 2
 unmark 2
+unmark A
+unmark 67
+todo
+event third /from 333
 mark 3
 list
 bye
