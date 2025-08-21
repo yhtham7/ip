@@ -36,14 +36,14 @@ public class Bob {
     protected static void PrintStart() {
         String out = "____________________________________________________________\n"
                 + "Hello! I'm Bob!\n"
-                + "What can I do for you?\n"
+                + "What do you want today?\n"
                 + "____________________________________________________________";
         System.out.println(out);
     }
 
     protected static void PrintEnd() {
         String out = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
+                + "Bye!!!! seeee you soooon!!!!!\n"
                 + "____________________________________________________________";
         System.out.println(out);
     }
