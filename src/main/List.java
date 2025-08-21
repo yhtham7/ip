@@ -8,17 +8,29 @@ public class List {
 
     public void addItem(String item) {
         taskList.add(new Task(item));
-        String out = "____________________________________________________________\n"
-                + "added: " + item + "\n"
-                + "____________________________________________________________";
-        System.out.println(out);
+        Bob.printer("added: " + item + "\n");
+    }
+
+    public void markItem(int index) {
+        if (index > 0 && index <= taskList.size()) {
+            this.taskList.get(index - 1).mark();
+            Bob.printer("Ok the task is marked as complete!\n");
+        } else {
+            Bob.printer("Invalid index!\n");
+        }
+    }
+
+    public void unMarkItem(int index) {
+        if (index > 0 && index <= taskList.size()) {
+            this.taskList.get(index - 1).unmark();
+            Bob.printer("Ok the task is no longer complete!\n");
+        } else {
+            Bob.printer("Invalid index!\n");
+        }
     }
 
     public void printList() {
-        String out = "____________________________________________________________\n"
-                + this
-                + "____________________________________________________________";
-        System.out.println(out);
+        Bob.printer(this.toString());
     }
 
     @Override
@@ -29,7 +41,7 @@ public class List {
             out += "No items on the list!\n";
         } else {
             for (int i = 0; i < length; i++) {
-                out += (i + 1) + ". " + taskList.get(i) + "\n";
+                out += (i + 1) + "." + taskList.get(i) + "\n";
             }
         }
         return out;
