@@ -6,15 +6,19 @@ public class List {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int numOfItems;
 
-    public void addItem(String item) {
-        taskList.add(new Task(item));
-        Bob.printer("added: " + item + "\n");
+    public void addItem(Task item) {
+        taskList.add(item);
+        Bob.printer("Alright! Task added:\n"
+                + item + "\n"
+                + "There are now " + taskList.size() + " task(s) in the list.\n");
     }
 
     public void markItem(int index) {
         if (index > 0 && index <= taskList.size()) {
-            this.taskList.get(index - 1).mark();
-            Bob.printer("Ok the task is marked as complete!\n");
+            Task thing = this.taskList.get(index - 1);
+            thing.mark();
+            Bob.printer("Ok the task is marked as complete!\n"
+                    + thing + "\n");
         } else {
             Bob.printer("Invalid index!\n");
         }
@@ -22,8 +26,10 @@ public class List {
 
     public void unMarkItem(int index) {
         if (index > 0 && index <= taskList.size()) {
-            this.taskList.get(index - 1).unmark();
-            Bob.printer("Ok the task is no longer complete!\n");
+            Task thing = this.taskList.get(index - 1);
+            thing.mark();
+            Bob.printer("Ok the task is no longer complete!\n"
+                    + thing + "\n");
         } else {
             Bob.printer("Invalid index!\n");
         }

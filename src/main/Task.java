@@ -1,7 +1,7 @@
 package main;
 
 public class Task {
-    private String description;
+    protected String description;
     private boolean complete = false;
 
     public Task(String description) {
@@ -19,7 +19,6 @@ public class Task {
     public void unmark() {
         this.complete = false;
     }
-
 
     @Override
     public String toString() {

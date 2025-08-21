@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Bob {
     enum Action {
@@ -48,8 +49,41 @@ public class Bob {
                 case "list":
                     tasks.printList();
                     break;
+                case "todo":
+                    if (parts.length < 2) {
+                        System.out.println("Usage: todo <task>");
+                    } else {
+                        tasks.addItem(new ToDos(parts[1]));
+                    }
+                    break;
+                case "deadline":
+                    if (parts.length < 2) {
+                        System.out.println("Usage: deadline <task> /by <time>");
+                    } else {
+                        Pattern pattern = Pattern.compile("^deadline (.+) /by (.+)$");
+                        Matcher m = pattern.matcher(input);
+                        if (m.matches()) {
+                            tasks.addItem(new Deadlines(m.group(1).trim(), m.group(2).trim()));
+                        } else {
+                            System.out.println("Usage: deadline <task> /by <time>");
+                        }
+                    }
+                    break;
+                case "event":
+                    if (parts.length < 2) {
+                        System.out.println("Usage: event <task> /from <startTime> /to <endTime>");
+                    } else {
+                        Pattern pattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
+                        Matcher m = pattern.matcher(input);
+                        if (m.matches()) {
+                            tasks.addItem(new Events(m.group(1).trim(), m.group(2).trim(), m.group(3).trim()));
+                        } else {
+                            System.out.println("Usage: event <task> /from <startTime> /to <endTime>");
+                        }
+                    }
+                    break;
                 default:
-                    tasks.addItem(input);
+                    printBack(input);
             }
 
             /*
