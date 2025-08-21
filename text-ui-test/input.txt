@@ -1,0 +1,10 @@
+list
+todo thingy
+deadline thingy two /by mon 2359
+event third thingy /from mon 2000 /to mon 2359
+mark 1
+mark 2
+unmark 2
+mark 3
+list
+bye
