@@ -1,13 +1,19 @@
 package main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
-    String dueDate;
-    public Deadlines(String description, String dueDate) {
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    LocalDate dueDate;
+    public Deadlines(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;
     }
 
-    public Deadlines(String description, boolean complete, String dueDate) {
+    public Deadlines(String description, boolean complete, LocalDate dueDate) {
         super(description, complete);
         this.dueDate = dueDate;
     }
@@ -24,6 +30,6 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate + ")";
+        return "[D]" + super.toString() + " (by: " + this.dueDate.format(DATE_PRINT_FORMAT) + ")";
     }
 }
