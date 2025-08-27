@@ -13,6 +13,10 @@ public class List {
                 + "There are now " + taskList.size() + " task(s) in the list.\n");
     }
 
+    public void fileAddItem(Task item) {
+        taskList.add(item);
+    }
+
     public void markItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
@@ -49,6 +53,10 @@ public class List {
 
     public void printList() {
         Bob.printer(this.toString());
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     @Override
