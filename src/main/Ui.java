@@ -1,6 +1,7 @@
 package main;
 
 public class Ui {
+
     public static void printer(String text) {
         String out = "____________________________________________________________\n"
                 + text
