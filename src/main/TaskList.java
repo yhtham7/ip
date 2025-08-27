@@ -2,13 +2,13 @@ package main;
 
 import java.util.ArrayList;
 
-public class List {
+public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int numOfItems;
 
     public void addItem(Task item) {
         taskList.add(item);
-        Bob.printer("Alright! Task added:\n"
+        Ui.printer("Alright! Task added:\n"
                 + item + "\n"
                 + "There are now " + taskList.size() + " task(s) in the list.\n");
     }
@@ -21,10 +21,10 @@ public class List {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
             thing.mark();
-            Bob.printer("Ok the task is marked as complete!\n"
+            Ui.printer("Ok the task is marked as complete!\n"
                     + thing + "\n");
         } else {
-            Bob.printer("Invalid index!\n");
+            Ui.printer("Invalid index!\n");
         }
     }
 
@@ -32,10 +32,10 @@ public class List {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
             thing.unmark();
-            Bob.printer("Ok the task is no longer complete!\n"
+            Ui.printer("Ok the task is no longer complete!\n"
                     + thing + "\n");
         } else {
-            Bob.printer("Invalid index!\n");
+            Ui.printer("Invalid index!\n");
         }
     }
 
@@ -43,16 +43,16 @@ public class List {
         if (index > 0 && index <= taskList.size()) {
             Task item = this.taskList.get(index - 1);
             this.taskList.remove(index - 1);
-            Bob.printer("Alright! Task removed:\n"
+            Ui.printer("Alright! Task removed:\n"
                     + item + "\n"
                     + "There are now " + taskList.size() + " task(s) in the list.\n");
         } else {
-            Bob.printer("Invalid index!\n");
+            Ui.printer("Invalid index!\n");
         }
     }
 
     public void printList() {
-        Bob.printer(this.toString());
+        Ui.printer(this.toString());
     }
 
     public ArrayList<Task> getTaskList() {
