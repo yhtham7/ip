@@ -1,12 +1,10 @@
-package main;
+package bob;
 
 import java.util.Scanner;
-import java.util.regex.*;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-
+import bob.tasks.*;
+import bob.util.*;
 
 public class Bob {
     private static final String FILE_PATH = "./data/tasks.txt";

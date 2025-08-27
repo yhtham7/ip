@@ -1,6 +1,7 @@
-package main;
+package bob.tasks;
 
 import java.util.ArrayList;
+import bob.util.*;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
