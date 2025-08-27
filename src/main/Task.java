@@ -8,6 +8,11 @@ public class Task {
         this.description = description;
     }
 
+    public Task(String description, boolean complete) {
+        this.description = description;
+        this.complete = complete;
+    }
+
     public boolean isComplete() {
         return this.complete;
     }
@@ -18,6 +23,14 @@ public class Task {
 
     public void unmark() {
         this.complete = false;
+    }
+
+    protected String taskType() {
+        return "Task";
+    }
+
+    public String toFileString() {
+        return this.taskType() + " /done " + (this.complete ? 1 : 0) + " /des " + description;
     }
 
     @Override

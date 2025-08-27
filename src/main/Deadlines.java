@@ -2,9 +2,24 @@ package main;
 
 public class Deadlines extends Task {
     String dueDate;
-    public Deadlines(String description, String duedate) {
+    public Deadlines(String description, String dueDate) {
         super(description);
-        this.dueDate = duedate;
+        this.dueDate = dueDate;
+    }
+
+    public Deadlines(String description, boolean complete, String dueDate) {
+        super(description, complete);
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    protected String taskType() {
+        return "Deadline";
+    }
+
+    @Override
+    public String toFileString() {
+        return super.toFileString() + " /by " + this.dueDate;
     }
 
     @Override
