@@ -53,6 +53,8 @@ public class Storer {
                         boolean isDone = m.group(1).equals("1");
                         String desc = m.group(2);
                         taskList.fileAddItem(new Task(desc, isDone));
+                    } else {
+                        throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
                 } else if (line.startsWith("Todo")) {
                     Pattern p = Pattern.compile("^Todo /done (\\d) /des (.+)$");
@@ -61,6 +63,8 @@ public class Storer {
                         boolean isDone = m.group(1).equals("1");
                         String desc = m.group(2);
                         taskList.fileAddItem(new ToDos(desc, isDone));
+                    } else {
+                        throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
                 } else if (line.startsWith("Deadline")) {
                     Pattern p = Pattern.compile("^Deadline /done (\\d) /des (.+) /by (.+)$");
@@ -70,6 +74,8 @@ public class Storer {
                         String desc = m.group(2);
                         String by = m.group(3);
                         taskList.fileAddItem(new Deadlines(desc, isDone, by));
+                    } else {
+                        throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
                 } else if (line.startsWith("Event")) {
                     Pattern p = Pattern.compile("^Event /done (\\d) /des (.+) /from (.+) /to (.+)$");
@@ -80,11 +86,17 @@ public class Storer {
                         String from = m.group(3);
                         String to = m.group(4);
                         taskList.fileAddItem(new Events(desc, isDone, from, to));
+                    } else {
+                        throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
+                } else {
+                    throw new InvalidDataFormatException("Invalid Task format: " + line);
                 }
             }
         } catch (IOException e) {
             Bob.printer("Error accessing data: " + e.getMessage() + "\n");
+        } catch (InvalidDataFormatException e) {
+            Bob.printer(e.getMessage());
         }
 
         return taskList;
