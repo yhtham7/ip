@@ -1,4 +1,4 @@
-package main;
+package bob.misc;
 
 public class InvalidDataFormatException extends Exception{
     public InvalidDataFormatException() {
