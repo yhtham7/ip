@@ -2,9 +2,16 @@ package main;
 
 import java.util.Scanner;
 import java.util.regex.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 
 public class Bob {
     private static final String FILE_PATH = "./data/tasks.txt";
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -72,7 +79,14 @@ public class Bob {
                     Pattern pattern = Pattern.compile("^deadline (.+) /by (.+)$");
                     Matcher m = pattern.matcher(input);
                     if (m.matches()) {
-                        tasks.addItem(new Deadlines(m.group(1).trim(), m.group(2).trim()));
+                        String desc = m.group(1).trim();
+                        String byStr = m.group(2).trim();
+                        try {
+                            LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
+                            tasks.addItem(new Deadlines(desc, byDate));
+                        } catch (DateTimeParseException e) {
+                            Bob.printer("Invalid date format, use yyyy-MM-dd\n");
+                        }
                     } else {
                         Bob.printer("Usage: deadline <task> /by <time>\n");
                     }
@@ -85,7 +99,16 @@ public class Bob {
                     Pattern pattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
                     Matcher m = pattern.matcher(input);
                     if (m.matches()) {
-                        tasks.addItem(new Events(m.group(1).trim(), m.group(2).trim(), m.group(3).trim()));
+                        String desc = m.group(1).trim();
+                        String fromStr = m.group(2).trim();
+                        String toStr = m.group(3).trim();
+                        try {
+                            LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
+                            LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
+                            tasks.addItem(new Events(desc, from, to));
+                        } catch (DateTimeParseException e) {
+                            Bob.printer("Invalid date format, use yyyy-MM-dd\n");
+                        }
                     } else {
                         Bob.printer("Usage: event <task> /from <startTime> /to <endTime>\n");
                     }

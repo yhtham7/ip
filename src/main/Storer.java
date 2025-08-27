@@ -1,12 +1,16 @@
 package main;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Storer {
     private final File file;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Storer(String filePath) {
         this.file = new File(filePath);
@@ -72,8 +76,13 @@ public class Storer {
                     if (m.matches()) {
                         boolean isDone = m.group(1).equals("1");
                         String desc = m.group(2);
-                        String by = m.group(3);
-                        taskList.fileAddItem(new Deadlines(desc, isDone, by));
+                        String byStr = m.group(3);
+                        try {
+                            LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
+                            taskList.fileAddItem(new Deadlines(desc, isDone, byDate));
+                        } catch (DateTimeParseException e) {
+                            Bob.printer("Invalid date format, use yyyy-MM-dd\n");
+                        }
                     } else {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
@@ -83,9 +92,15 @@ public class Storer {
                     if (m.matches()) {
                         boolean isDone = m.group(1).equals("1");
                         String desc = m.group(2);
-                        String from = m.group(3);
-                        String to = m.group(4);
-                        taskList.fileAddItem(new Events(desc, isDone, from, to));
+                        String fromStr = m.group(3);
+                        String toStr = m.group(4);
+                        try {
+                            LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
+                            LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
+                            taskList.fileAddItem(new Events(desc, isDone, from, to));
+                        } catch (DateTimeParseException e) {
+                            Bob.printer("Invalid date format, use yyyy-MM-dd\n");
+                        }
                     } else {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
                     }
