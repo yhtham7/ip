@@ -1,7 +1,7 @@
 package bob.tasks;
 
-import java.util.ArrayList;
 import bob.util.*;
+import java.util.ArrayList;
 
 /**
  * Class containing a list of Tasks to be noted

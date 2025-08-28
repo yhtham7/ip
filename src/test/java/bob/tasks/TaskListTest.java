@@ -1,6 +1,5 @@
 package bob.tasks;
 
-import javafx.util.converter.LocalDateStringConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +16,6 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         testList.fileAddItem(test);
         testList.markItem(1);
-        assertTrue(test.isComplete());
+        assertTrue(test.getCompletionStatus());
     }
 }

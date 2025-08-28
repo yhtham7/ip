@@ -23,7 +23,7 @@ public class Deadlines extends Task {
     }
 
     @Override
-    protected String taskType() {
+    protected String getTaskType() {
         return "Deadline";
     }
 

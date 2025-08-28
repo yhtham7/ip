@@ -1,10 +1,10 @@
 package bob;
 
-import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
-
 import bob.tasks.*;
 import bob.util.*;
+
+import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Bob is a simple chatbot
@@ -12,6 +12,7 @@ import bob.util.*;
  * @author yhtham7
  * @version 0.1
  */
+
 
 public class Bob {
     private static final String FILE_PATH = "./data/tasks.txt";

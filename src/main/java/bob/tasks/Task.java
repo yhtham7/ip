@@ -5,7 +5,7 @@ package bob.tasks;
  */
 public class Task {
     protected String description;
-    private boolean complete = false;
+    private boolean isComplete = false;
 
     public Task(String description) {
         this.description = description;
@@ -13,22 +13,22 @@ public class Task {
 
     public Task(String description, boolean complete) {
         this.description = description;
-        this.complete = complete;
+        this.isComplete = complete;
     }
 
-    public boolean isComplete() {
-        return this.complete;
+    public boolean getCompletionStatus() {
+        return this.isComplete;
     }
 
     public void mark() {
-        this.complete = true;
+        this.isComplete = true;
     }
 
     public void unmark() {
-        this.complete = false;
+        this.isComplete = false;
     }
 
-    protected String taskType() {
+    protected String getTaskType() {
         return "Task";
     }
 
@@ -37,11 +37,11 @@ public class Task {
      * @return taskString
      */
     public String toFileString() {
-        return this.taskType() + " /done " + (this.complete ? 1 : 0) + " /des " + description;
+        return this.getTaskType() + " /done " + (this.isComplete ? 1 : 0) + " /des " + description;
     }
 
     @Override
     public String toString() {
-        return "[" + (complete ? "X" : " ") + "] " + description;
+        return "[" + (isComplete ? "X" : " ") + "] " + description;
     }
 }
