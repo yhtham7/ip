@@ -25,6 +25,10 @@ public class Task {
         this.complete = false;
     }
 
+    public boolean containsString(String query) {
+        return this.description.contains(query);
+    }
+
     protected String taskType() {
         return "Task";
     }

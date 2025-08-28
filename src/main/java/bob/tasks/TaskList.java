@@ -29,6 +29,22 @@ public class TaskList {
         }
     }
 
+    public void findTask(String query) {
+        int length = taskList.size();
+        String out = "";
+        if (length < 1) {
+            out += "No items on the list!\n";
+        } else {
+            for (int i = 0; i < length; i++) {
+                Task currTask = taskList.get(i);
+                if (currTask.containsString(query)) {
+                    out += (i + 1) + "." + taskList.get(i) + "\n";
+                }
+            }
+        }
+        Ui.printer(out.isEmpty() ? "No items match query" : out);
+    }
+
     public void unmarkItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
