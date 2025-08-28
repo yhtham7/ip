@@ -3,6 +3,10 @@ package bob.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task event with associated start and end date
+ */
+
 public class Events extends Task {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -26,6 +30,10 @@ public class Events extends Task {
         return "Event";
     }
 
+    /**
+     * Returns String format of task for storage
+     * @return taskString
+     */
     @Override
     public String toFileString() {
         return super.toFileString() + " /from " + this.startDate

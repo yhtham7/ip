@@ -1,5 +1,8 @@
 package bob.tasks;
 
+/**
+ * Generic Task
+ */
 public class Task {
     protected String description;
     private boolean complete = false;
@@ -29,6 +32,10 @@ public class Task {
         return "Task";
     }
 
+    /**
+     * Returns String format of task for storage
+     * @return taskString
+     */
     public String toFileString() {
         return this.taskType() + " /done " + (this.complete ? 1 : 0) + " /des " + description;
     }
