@@ -1,10 +1,10 @@
 package bob;
 
-import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
-
 import bob.tasks.*;
 import bob.util.*;
+
+import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 public class Bob {
     private static final String FILE_PATH = "./data/tasks.txt";

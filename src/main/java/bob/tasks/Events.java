@@ -22,7 +22,7 @@ public class Events extends Task {
     }
 
     @Override
-    protected String taskType() {
+    protected String getTaskType() {
         return "Event";
     }
 

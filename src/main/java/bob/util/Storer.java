@@ -1,5 +1,8 @@
 package bob.util;
 
+import bob.tasks.*;
+import bob.misc.*;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +11,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import bob.tasks.*;
-import bob.misc.*;
 
 public class Storer {
     private final File file;
