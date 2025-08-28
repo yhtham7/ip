@@ -19,5 +19,7 @@ data/
 *.iml
 bin/
 
+/META-INF
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
