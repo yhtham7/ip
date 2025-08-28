@@ -8,9 +8,17 @@ import java.util.regex.Pattern;
 
 import bob.tasks.*;
 
+/**
+ * Parser class for parser method
+ */
 public class Parser {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Takes in a String input and parses it to execute the correct action
+     * @param input String to be parse
+     * @param tasks TaskList to be modified
+     */
     public static void parseInput(String input, TaskList tasks) {
         String[] parts = input.split(" ", 2);
         String cmd = parts[0].toLowerCase();

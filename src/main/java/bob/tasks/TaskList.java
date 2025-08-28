@@ -3,10 +3,18 @@ package bob.tasks;
 import java.util.ArrayList;
 import bob.util.*;
 
+/**
+ * Class containing a list of Tasks to be noted
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int numOfItems;
 
+    /**
+     * Adds Task item to list
+     * Prints confirmation message
+     * @param item
+     */
     public void addItem(Task item) {
         taskList.add(item);
         Ui.printer("Alright! Task added:\n"
@@ -14,10 +22,19 @@ public class TaskList {
                 + "There are now " + taskList.size() + " task(s) in the list.\n");
     }
 
+    /**
+     * Adds Task item to list
+     * No message printed
+     * @param item
+     */
     public void fileAddItem(Task item) {
         taskList.add(item);
     }
 
+    /**
+     * Marks item at index as complete
+     * @param index
+     */
     public void markItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
@@ -29,6 +46,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks item at index as not complete
+     * @param index
+     */
     public void unmarkItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task thing = this.taskList.get(index - 1);
@@ -40,6 +61,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes Task item at index form list
+     * @param index
+     */
     public void deleteItem(int index) {
         if (index > 0 && index <= taskList.size()) {
             Task item = this.taskList.get(index - 1);
@@ -52,10 +77,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Pretty print function
+     */
     public void printList() {
         Ui.printer(this.toString());
     }
 
+    /**
+     * Getter for arraylist
+     * @return taskList
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }

@@ -11,10 +11,18 @@ import java.util.regex.Matcher;
 import bob.tasks.*;
 import bob.misc.*;
 
+/**
+ * Storer class that is accesses data to save or load tasks
+ */
 public class Storer {
     private final File file;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+
+    /**
+     * Constructor for Storer class
+     * @param filePath path to access data file
+     */
     public Storer(String filePath) {
         this.file = new File(filePath);
 
@@ -32,6 +40,10 @@ public class Storer {
         }
     }
 
+    /**
+     * Saves the associated TaskList into data file
+     * @param taskList taskList to be saved
+     */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
             ArrayList<Task> taskArrayList = taskList.getTaskList();
@@ -44,6 +56,11 @@ public class Storer {
         }
     }
 
+    /**
+     * Loads data from data file into associated taskList
+     * @param taskList taskList to be modified
+     * @return taskList
+     */
     public TaskList load(TaskList taskList) {
         if (!this.file.exists()){
             return taskList;
