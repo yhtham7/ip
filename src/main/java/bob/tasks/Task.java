@@ -1,5 +1,7 @@
 package bob.tasks;
 
+import java.util.regex.Pattern;
+
 public class Task {
     protected String description;
     private boolean complete = false;
@@ -26,7 +28,7 @@ public class Task {
     }
 
     public boolean containsString(String query) {
-        return this.description.contains(query);
+        return this.description.matches("(?i).*" + Pattern.quote(query) + ".*");
     }
 
     protected String taskType() {
