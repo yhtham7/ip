@@ -1,5 +1,7 @@
 package bob.tasks;
 
+import java.util.regex.Pattern;
+
 /**
  * Generic Task
  */
@@ -28,8 +30,16 @@ public class Task {
         this.isComplete = false;
     }
 
-    protected String getTaskType() {
-        return "Task";
+    protected String getTaskType() {return "Task";
+    }
+
+    /**
+     * Returns true if query provided is contained in description
+     * @param query
+     * @return
+     */
+    public boolean containsString(String query) {
+        return this.description.matches("(?i).*" + Pattern.quote(query) + ".*");
     }
 
     /**

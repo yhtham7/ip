@@ -113,6 +113,13 @@ public class Parser {
                 }
             }
             break;
+        case "find":
+            if (parts.length < 2) {
+                Ui.printer("Usage: delete <index>\n");
+            } else {
+                tasks.findTask(parts[1]);
+            }
+            break;
         default:
             Ui.printBack(input);
         }
