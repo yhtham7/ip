@@ -27,7 +27,7 @@ public class Storer {
     public Storer(String filePath) {
         this.file = new File(filePath);
 
-        File parentFolder = this.file.getParentFile(); // gets "data" if filePath = "data/tasks.txt"
+        File parentFolder = this.file.getParentFile();
         if (parentFolder != null && !parentFolder.exists()) {
             boolean created = parentFolder.mkdirs();
         }
@@ -36,7 +36,7 @@ public class Storer {
             try {
                 boolean fileCreated = this.file.createNewFile();
             } catch (IOException e) {
-                Ui.printer("Error creating file: " + e.getMessage() + "\n");
+                System.out.println("Error creating file: " + e.getMessage());
             }
         }
     }
@@ -53,7 +53,7 @@ public class Storer {
                 writer.newLine();
             }
         } catch (IOException e) {
-            Ui.printer("Error accessing data: " + e.getMessage() + "\n");
+            System.out.println("Error accessing data: " + e.getMessage() + "\n");
         }
     }
 
@@ -102,7 +102,7 @@ public class Storer {
                             LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
                             taskList.fileAddItem(new Deadlines(desc, isDone, byDate));
                         } catch (DateTimeParseException e) {
-                            Ui.printer("Invalid date format, use yyyy-MM-dd\n");
+                            System.out.println("Invalid date format, use yyyy-MM-dd\n");
                         }
                     } else {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
@@ -120,7 +120,7 @@ public class Storer {
                             LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
                             taskList.fileAddItem(new Events(desc, isDone, from, to));
                         } catch (DateTimeParseException e) {
-                            Ui.printer("Invalid date format, use yyyy-MM-dd\n");
+                            System.out.println("Invalid date format, use yyyy-MM-dd\n");
                         }
                     } else {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
@@ -130,9 +130,9 @@ public class Storer {
                 }
             }
         } catch (IOException e) {
-            Ui.printer("Error accessing data: " + e.getMessage() + "\n");
+            System.out.println("Error accessing data: " + e.getMessage() + "\n");
         } catch (InvalidDataFormatException e) {
-            Ui.printer(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return taskList;

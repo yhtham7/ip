@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Bob bob;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image bobImage = new Image(this.getClass().getResourceAsStream("/images/DaBob.png"));
 
     @FXML
     public void initialize() {
@@ -46,14 +46,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equalsIgnoreCase("")){
+            return;
+        }
         String response = bob.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBobDialog(response, dukeImage)
+                DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
 
-        if (bob.isExit()) {
+        if (bob.shouldExit()) {
             Platform.exit();
         }
     }
