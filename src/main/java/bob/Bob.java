@@ -20,6 +20,7 @@ public class Bob {
 
     private Storer storer;
     private TaskList tasks;
+    private boolean isFinished = false;
 
 
     /**
@@ -51,6 +52,19 @@ public class Bob {
 
             Parser.parseInput(input, this.tasks);
         }
+    }
+
+    public String getResponse(String input) {
+        String res = Parser.parseInput(input, this.tasks);
+        if (res.equalsIgnoreCase("bye")) {
+            this.storer.save(this.tasks);
+            this.isFinished = true;
+        }
+        return res;
+    }
+
+    public boolean isExit(){
+        return isFinished;
     }
 
     /**
