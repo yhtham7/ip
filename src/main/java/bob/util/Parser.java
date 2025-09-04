@@ -20,48 +20,44 @@ public class Parser {
      * @param input String to be parse
      * @param tasks TaskList to be modified
      */
-    public static void parseInput(String input, TaskList tasks) {
+    public static String parseInput(String input, TaskList tasks) {
         String[] parts = input.split(" ", 2);
         String cmd = parts[0].toLowerCase();
 
         switch (cmd) {
         case "mark":
             if (parts.length < 2) {
-                Ui.printer("Usage: mark <index>\n");
+                return"Usage: mark <index>";
             } else {
                 try {
                     int index = Integer.valueOf(parts[1]);
-                    tasks.markItem(index);
+                    return(tasks.markItem(index));
                 } catch (NumberFormatException e) {
-                    Ui.printer("Type in a number in the range\n");
+                    return"Type in a number in the range";
                 }
             }
-            break;
         case "unmark":
             if (parts.length < 2) {
-                Ui.printer("Usage: unmark <index>\n");
+                return("Usage: unmark <index>");
             } else {
                 try {
                     int index = Integer.valueOf(parts[1]);
-                    tasks.unmarkItem(index);
+                    return(tasks.unmarkItem(index));
                 } catch (NumberFormatException e) {
-                    Ui.printer("Type in a number in the range\n");
+                    return("Type in a number in the range");
                 }
             }
-            break;
         case "list":
-            tasks.printList();
-            break;
+            return(tasks.toString());
         case "todo":
             if (parts.length < 2) {
-                Ui.printer("Usage: todo <task>\n");
+                return("Usage: todo <task>");
             } else {
-                tasks.addItem(new ToDos(parts[1]));
+                return(tasks.addItem(new ToDos(parts[1])));
             }
-            break;
         case "deadline":
             if (parts.length < 2) {
-                Ui.printer("Usage: deadline <task> /by <time>\n");
+                return("Usage: deadline <task> /by <time>");
             } else {
                 Pattern pattern = Pattern.compile("^deadline (.+) /by (.+)$");
                 Matcher m = pattern.matcher(input);
@@ -70,18 +66,17 @@ public class Parser {
                     String byStr = m.group(2).trim();
                     try {
                         LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
-                        tasks.addItem(new Deadlines(desc, byDate));
+                        return(tasks.addItem(new Deadlines(desc, byDate)));
                     } catch (DateTimeParseException e) {
-                        Ui.printer("Invalid date format, use yyyy-MM-dd\n");
+                        return("Invalid date format, use yyyy-MM-dd");
                     }
                 } else {
-                    Ui.printer("Usage: deadline <task> /by <time>\n");
+                    return("Usage: deadline <task> /by <time>");
                 }
             }
-            break;
         case "event":
             if (parts.length < 2) {
-                Ui.printer("Usage: event <task> /from <startTime> /to <endTime>\n");
+                return("Usage: event <task> /from <startTime> /to <endTime>");
             } else {
                 Pattern pattern = Pattern.compile("^event (.+) /from (.+) /to (.+)$");
                 Matcher m = pattern.matcher(input);
@@ -92,36 +87,33 @@ public class Parser {
                     try {
                         LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
                         LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
-                        tasks.addItem(new Events(desc, from, to));
+                        return(tasks.addItem(new Events(desc, from, to)));
                     } catch (DateTimeParseException e) {
-                        Ui.printer("Invalid date format, use yyyy-MM-dd\n");
+                        return("Invalid date format, use yyyy-MM-dd");
                     }
                 } else {
-                    Ui.printer("Usage: event <task> /from <startTime> /to <endTime>\n");
+                    return("Usage: event <task> /from <startTime> /to <endTime>");
                 }
             }
-            break;
         case "delete":
             if (parts.length < 2) {
-                Ui.printer("Usage: delete <index>\n");
+                return("Usage: delete <index>");
             } else {
                 try {
                     int index = Integer.valueOf(parts[1]);
-                    tasks.deleteItem(index);
+                    return(tasks.deleteItem(index));
                 } catch (NumberFormatException e) {
-                    Ui.printer("Type in a number in the range\n");
+                    return("Type in a number in the range");
                 }
             }
-            break;
         case "find":
             if (parts.length < 2) {
-                Ui.printer("Usage: delete <index>\n");
+                return("Usage: find <query>");
             } else {
-                tasks.findTask(parts[1]);
+                return(tasks.findTask(parts[1]));
             }
-            break;
         default:
-            Ui.printBack(input);
+            return(input);
         }
     }
 }

@@ -3,7 +3,6 @@ package bob;
 import bob.tasks.*;
 import bob.util.*;
 
-import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -20,6 +19,7 @@ public class Bob {
 
     private Storer storer;
     private TaskList tasks;
+    private boolean isFinished = false;
 
 
     /**
@@ -33,32 +33,24 @@ public class Bob {
 
 
     /**
-     * This method calls upon other utils to run the Ui and Storer
+     * Sends input to parser for appropriate action
+     * @param input
+     * @return
      */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        Ui.printStart();
-
-        while (true) {
-            input = scanner.nextLine();
-
-            if (input.equalsIgnoreCase("bye")) {
-                Ui.printEnd();
-                this.storer.save(this.tasks);
-                break;
-            }
-
-            Parser.parseInput(input, this.tasks);
+    public String getResponse(String input) {
+        String res = Parser.parseInput(input, this.tasks);
+        if (res.equalsIgnoreCase("bye")) {
+            this.storer.save(this.tasks);
+            this.isFinished = true;
         }
+        return res;
     }
 
     /**
-     * Main method that creates a new Bob instance and runs it
-     * @param args Unused.
+     * returns if
+     * @return
      */
-    public static void main(String[] args) {
-        Bob current = new Bob(FILE_PATH);
-        current.run();
+    public boolean shouldExit(){
+        return isFinished;
     }
 }
