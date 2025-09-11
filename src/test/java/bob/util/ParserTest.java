@@ -10,7 +10,7 @@ public class ParserTest {
     public void test1() {
         TaskList baseList = new TaskList();
         TaskList testList = new TaskList();
-        baseList.addItem(new ToDos("thing"));
+        baseList.addItem(new ToDo("thing"));
         Parser.parseInput("todo thing", testList);
 
         String base = baseList.getTaskList().get(0).toString();

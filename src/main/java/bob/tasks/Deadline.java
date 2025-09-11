@@ -7,17 +7,17 @@ import java.time.format.DateTimeFormatter;
  * Task Deadline with an associated by date
  */
 
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     LocalDate dueDate;
-    public Deadlines(String description, LocalDate dueDate) {
+    public Deadline(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;
     }
 
-    public Deadlines(String description, boolean complete, LocalDate dueDate) {
+    public Deadline(String description, boolean complete, LocalDate dueDate) {
         super(description, complete);
         this.dueDate = dueDate;
     }
@@ -25,6 +25,10 @@ public class Deadlines extends Task {
     @Override
     protected String getTaskType() {
         return "Deadline";
+    }
+
+    public void setDueDate(LocalDate newDueDate) {
+        this.dueDate = newDueDate;
     }
 
     /**

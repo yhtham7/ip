@@ -12,7 +12,7 @@ public class TaskListTest {
 
     @Test
     public void test1() {
-        Deadlines test = new Deadlines("thing", LocalDate.parse("2025-12-25", DATE_FORMAT));
+        Deadline test = new Deadline("thing", LocalDate.parse("2025-12-25", DATE_FORMAT));
         TaskList testList = new TaskList();
         testList.fileAddItem(test);
         testList.markItem(1);
