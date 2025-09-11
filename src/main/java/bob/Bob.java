@@ -47,7 +47,7 @@ public class Bob {
     }
 
     /**
-     * returns if
+     * returns ifFinished if the program is ready to exit
      * @return
      */
     public boolean shouldExit(){

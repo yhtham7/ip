@@ -50,6 +50,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
         String response = bob.getResponse(input);
+        assert !response.isEmpty() : "response should not be empty";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBobDialog(response, bobImage)
