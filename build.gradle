@@ -47,7 +47,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'bob,jar'
+    archiveFileName = 'bob.jar'
 }
 
 run{
