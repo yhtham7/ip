@@ -36,14 +36,15 @@ public class TaskList {
      * @param index
      */
     public String markItem(int index) {
-        if (index > 0 && index <= taskList.size()) {
-            Task thing = this.taskList.get(index - 1);
-            thing.mark();
-            return("Ok the task is marked as complete!\n"
-                    + thing + "\n");
-        } else {
-            return("Invalid index!\n");
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+
+        if (!isValidIndex) {
+            return ("Invalid index!\n");
         }
+        Task thing = this.taskList.get(index - 1);
+        thing.mark();
+        return("Ok the task is marked as complete!\n"
+                + thing + "\n");
     }
 
     /**
@@ -51,14 +52,15 @@ public class TaskList {
      * @param index
      */
     public String unmarkItem(int index) {
-        if (index > 0 && index <= taskList.size()) {
-            Task thing = this.taskList.get(index - 1);
-            thing.unmark();
-            return("Ok the task is no longer complete!\n"
-                    + thing + "\n");
-        } else {
-            return("Invalid index!\n");
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+
+        if (!isValidIndex) {
+            return ("Invalid index!\n");
         }
+        Task thing = this.taskList.get(index - 1);
+        thing.unmark();
+        return("Ok the task is no longer complete!\n"
+                + thing + "\n");
     }
 
     /**
@@ -66,15 +68,15 @@ public class TaskList {
      * @param index
      */
     public String deleteItem(int index) {
-        if (index > 0 && index <= taskList.size()) {
-            Task item = this.taskList.get(index - 1);
-            this.taskList.remove(index - 1);
-            return("Alright! Task removed:\n"
-                    + item + "\n"
-                    + "There are now " + taskList.size() + " task(s) in the list.\n");
-        } else {
-            return("Invalid index!\n");
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+
+        if (!isValidIndex) {
+            return ("Invalid index!\n");
         }
+        Task item = this.taskList.get(index - 1);
+        this.taskList.remove(index - 1);
+        return("Alright! Task removed:\n" + item + "\n"
+                + "There are now " + taskList.size() + " task(s) in the list.\n");
     }
 
     /**
@@ -83,16 +85,19 @@ public class TaskList {
      */
     public String findTask(String query) {
         int length = taskList.size();
-        String out = "";
+
         if (length < 1) {
-            out += "No items on the list!\n";
-        } else {
-            for (int i = 0; i < length; i++) {
-                Task currTask = taskList.get(i);
-                if (currTask.containsString(query)) {
-                    out += (i + 1) + "." + taskList.get(i) + "\n";
-                }
+            return("No items on the list!\n");
+        }
+
+        String out = "";
+        for (int i = 0; i < length; i++) {
+            Task currTask = taskList.get(i);
+            if (!currTask.containsString(query)) {
+                continue;
             }
+            out += (i + 1) + "." + taskList.get(i) + "\n";
+
         }
         return(out.isEmpty() ? "No items match query" : out);
     }
@@ -115,13 +120,14 @@ public class TaskList {
     @Override
     public String toString() {
         int length = taskList.size();
-        String out = "";
+
         if (length < 1) {
-            out += "No items on the list!\n";
-        } else {
-            for (int i = 0; i < length; i++) {
-                out += (i + 1) + "." + taskList.get(i) + "\n";
-            }
+            return("No items on the list!\n");
+        }
+
+        String out = "";
+        for (int i = 0; i < length; i++) {
+            out += (i + 1) + "." + taskList.get(i) + "\n";
         }
         return out;
     }
