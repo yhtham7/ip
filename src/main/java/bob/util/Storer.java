@@ -35,6 +35,7 @@ public class Storer {
         if (!this.file.exists()) {
             try {
                 boolean fileCreated = this.file.createNewFile();
+                assert fileCreated: "data file should have been created";
             } catch (IOException e) {
                 System.out.println("Error creating file: " + e.getMessage());
             }
@@ -48,6 +49,7 @@ public class Storer {
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.file))) {
             ArrayList<Task> taskArrayList = taskList.getTaskList();
+            assert taskArrayList != null: "returned ArrayList should be non null";
             for (Task things : taskArrayList) {
                 writer.write(things.toFileString());
                 writer.newLine();
