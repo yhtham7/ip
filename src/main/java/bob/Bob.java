@@ -47,11 +47,19 @@ public class Bob {
         return res;
     }
 
+    public String getWelcomeMessage() {
+        return "Woof! I'm Bob.\nHow can i help you today?";
+    }
+
+    public boolean hasTasks() {
+        return tasks.hasTasks();
+    }
+
     /**
-     * returns ifFinished if the program is ready to exit
+     * returns isFinished if the program is ready to exit
      * @return
      */
-    public boolean shouldExit(){
+    public boolean isFinished(){
         return isFinished;
     }
 }

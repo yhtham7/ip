@@ -57,9 +57,15 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (bob.shouldExit()) {
+        if (bob.isFinished()) {
             Platform.exit();
         }
+    }
+
+    public void showWelcome(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getBobDialog(message, bobImage)
+        );
     }
 }
 

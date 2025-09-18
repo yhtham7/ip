@@ -15,16 +15,19 @@ Here's how you can use it!
 
 Here are some of the `commands` that you can use
 ```
-list #Lists all commands
+list #lists all tasks
 todo <task> #adds a todo item
 deadline <task> /by <duedate> #adds a deadline with <duedate>
 event <task> /from <startdate> /by <enddate> #adds a event from <startdate> to <end date>
 find <query> #searches for tasks with <query> in the description
 delete <index> #removes item listed in index
-Update #updates details of tasks
+update #updates details of tasks
     update <index> /des <new description>
     update <index> /by <new deadline>
     update <index> /from <new start> /to <new end>
+help
+    help #lists all commands
+    help <command> #shows useage for specific command
 ```
 
 Features:

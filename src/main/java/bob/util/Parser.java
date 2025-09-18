@@ -53,11 +53,13 @@ public class Parser {
 
         case "list":
             return(tasks.toString());
+
         case "todo":
             if (parts.length < 2) {
                 return("Usage: todo <task>");
             }
             return(tasks.addItem(new ToDo(parts[1])));
+
         case "deadline": {
             if (parts.length < 2) {
                 return("Usage: deadline <task> /by <time>");
@@ -124,59 +126,17 @@ public class Parser {
             if (parts.length < 2) {
                 return("Usage: update <index> /*");
             }
-            return(Parser.updater(input, tasks));
+            return(Updater.handleUpdate(input, tasks));
+
+        case "help":
+            if (parts.length == 1) {
+                return Help.getHelp(null);
+            } else {
+                return Help.getHelp(parts[1]);
+            }
+
         default:
             return(input);
-        }
-    }
-
-    /**
-     * Parses update keywords to allow for the editing of tasks
-     * @param input update string to be parsed
-     * @param tasks tasklist in which to update
-     * @return result of update attempt
-     */
-    public static String updater(String input, TaskList tasks) {
-        Pattern desPattern = Pattern.compile("^update (\\d+) /des (.+)$");
-        Pattern byPattern = Pattern.compile("^update (\\d+) /by (.+)$");
-        Pattern eventPattern = Pattern.compile("^update (\\d+) /from (.+) /to (.+)$");
-
-        Matcher m;
-
-        if ((m = desPattern.matcher(input)).matches()) {
-            int index = Integer.parseInt(m.group(1));
-            String newDesc = m.group(2);
-            return(tasks.updateDescription(index, newDesc));
-
-        } else if ((m = byPattern.matcher(input)).matches()) {
-            int index = Integer.parseInt(m.group(1));
-            String newDueDateString = m.group(2);
-            try {
-                LocalDate newDueDate = LocalDate.parse(newDueDateString, DATE_FORMAT);
-                return(tasks.updateDeadline(index, newDueDate));
-            } catch (DateTimeParseException e) {
-                return("Invalid date format, use yyyy-MM-dd");
-            }
-
-        } else if ((m = eventPattern.matcher(input)).matches()) {
-            int index = Integer.parseInt(m.group(1));
-            String newFromString = m.group(2);
-            String newToString = m.group(3);
-            try {
-                LocalDate newFrom = LocalDate.parse(newFromString, DATE_FORMAT);
-                LocalDate newTo = LocalDate.parse(newToString, DATE_FORMAT);
-                return(tasks.updateEvent(index, newFrom, newTo));
-            } catch (DateTimeParseException e) {
-                return ("Invalid date format, use yyyy-MM-dd");
-            }
-
-        } else {
-            return("""
-                    Usage:
-                    update <index> /des <new description>
-                    update <index> /by <new deadline>
-                    update <index> /from <new start> /to <new end>
-                    """);
         }
     }
 }

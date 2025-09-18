@@ -180,6 +180,10 @@ public class TaskList {
         return taskList;
     }
 
+    public boolean hasTasks() {
+        return !taskList.isEmpty();
+    }
+
     @Override
     public String toString() {
         int length = taskList.size();

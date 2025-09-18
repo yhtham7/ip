@@ -22,7 +22,14 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBob(bob);  // inject the Duke instance
+            MainWindow controller = fxmlLoader.getController();
+            controller.setBob(bob);
+
+            // Show welcome message
+            controller.showWelcome(bob.getWelcomeMessage()); // inject the bob instance
+            if (bob.hasTasks()) {
+                controller.showWelcome(bob.getResponse("list"));
+            }
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
