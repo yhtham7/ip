@@ -40,8 +40,8 @@ public class Bob {
      */
     public String getResponse(String input) {
         String res = Parser.parseInput(input, this.tasks);
+        this.storer.save(this.tasks);
         if (input.equalsIgnoreCase("bye")) {
-            this.storer.save(this.tasks);
             this.isFinished = true;
             res = "";
         }
