@@ -95,7 +95,7 @@ public class Storer {
                     }
                     boolean isDone = m.group(1).equals("1");
                     String desc = m.group(2);
-                    taskList.fileAddItem(new ToDos(desc, isDone));
+                    taskList.fileAddItem(new ToDo(desc, isDone));
                     break;
                 }
                 case ("deadline"): {
@@ -109,7 +109,7 @@ public class Storer {
                     String byStr = m.group(3);
                     try {
                         LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
-                        taskList.fileAddItem(new Deadlines(desc, isDone, byDate));
+                        taskList.fileAddItem(new Deadline(desc, isDone, byDate));
                         break;
                     } catch (DateTimeParseException e) {
                         System.out.println("Invalid date format, use yyyy-MM-dd\n");
@@ -128,7 +128,7 @@ public class Storer {
                     try {
                         LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
                         LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
-                        taskList.fileAddItem(new Events(desc, isDone, from, to));
+                        taskList.fileAddItem(new Event(desc, isDone, from, to));
                         break;
                     } catch (DateTimeParseException e) {
                         System.out.println("Invalid date format, use yyyy-MM-dd\n");

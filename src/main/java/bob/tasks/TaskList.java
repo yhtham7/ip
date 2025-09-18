@@ -1,6 +1,6 @@
 package bob.tasks;
 
-import bob.util.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -100,6 +100,67 @@ public class TaskList {
 
         }
         return(out.isEmpty() ? "No items match query" : out);
+    }
+
+    /**
+     * Updates the description of an existing task in the list
+     * @param index index of item to be updated
+     * @param newDescription new description of item
+     * @return status of update
+     */
+    public String updateDescription(int index, String newDescription) {
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+        if (!isValidIndex) {
+            return "Invalid index!\n";
+        }
+
+        Task task = taskList.get(index - 1);
+        task.setDescription(newDescription);
+        return "Updated description:\n" + task + "\n";
+    }
+
+    /**
+     * Updates the due date of deadlines
+     * @param index index of deadline to be updated
+     * @param newDueDate new due date
+     * @return status of update
+     */
+    public String updateDeadline(int index, LocalDate newDueDate) {
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+        if (!isValidIndex) {
+            return "Invalid index!\n";
+        }
+
+        Task task = taskList.get(index - 1);
+        if ( !(task instanceof Deadline deadline)) {
+            return "Task at index " + index + " is not a deadline!\n";
+        }
+
+        deadline.setDueDate(newDueDate);
+        return "Updated deadline:\n" + task + "\n";
+    }
+
+    /**
+     * Updates the start and end date of an event
+     * @param index index of event to be updated
+     * @param newStartDate new start date
+     * @param newEndDate new end date
+     * @return status of update
+     */
+    public String updateEvent(int index, LocalDate newStartDate, LocalDate newEndDate) {
+        boolean isValidIndex = index > 0 && index <= taskList.size();
+        if (!isValidIndex) {
+            return "Invalid index!\n";
+        }
+
+        Task task = taskList.get(index - 1);
+        if ( !(task instanceof Event event)) {
+            return "Task at index " + index + " is not an event!\n";
+        }
+
+        event.setStartDate(newStartDate);
+        event.setEndDate(newEndDate);
+        return "Updated event:\n" + task + "\n";
     }
 
     /**

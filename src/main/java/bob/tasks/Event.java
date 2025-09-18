@@ -7,19 +7,19 @@ import java.time.format.DateTimeFormatter;
  * Task event with associated start and end date
  */
 
-public class Events extends Task {
+public class Event extends Task {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     LocalDate startDate;
     LocalDate endDate;
-    public Events(String description, LocalDate startDate, LocalDate endDate) {
+    public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Events(String description, boolean complete, LocalDate startDate, LocalDate endDate) {
+    public Event(String description, boolean complete, LocalDate startDate, LocalDate endDate) {
         super(description, complete);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -28,6 +28,14 @@ public class Events extends Task {
     @Override
     protected String getTaskType() {
         return "Event";
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     /**

@@ -3,12 +3,12 @@ package bob.tasks;
 /**
  * Task "to do"
  */
-public class ToDos extends Task {
-    public ToDos(String description) {
+public class ToDo extends Task {
+    public ToDo(String description) {
         super(description);
     }
 
-    public ToDos(String description, boolean complete) {
+    public ToDo(String description, boolean complete) {
         super(description, complete);
     }
 

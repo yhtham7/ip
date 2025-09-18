@@ -33,6 +33,10 @@ public class Task {
     protected String getTaskType() {return "Task";
     }
 
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
     /**
      * Returns true if query provided is contained in description
      * @param query
