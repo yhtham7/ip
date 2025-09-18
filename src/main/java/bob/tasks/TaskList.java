@@ -8,7 +8,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
-    private int numOfItems;
 
     /**
      * Adds Task item to list
@@ -16,10 +15,14 @@ public class TaskList {
      * @param item task to be added
      */
     public String addItem(Task item) {
-        taskList.add(item);
-        return("Alright! Task added:\n"
-                + item + "\n"
-                + "There are now " + taskList.size() + " task(s) in the list.");
+        try {
+            taskList.add(item);
+            return ("Alright! Task added:\n"
+                    + item + "\n"
+                    + "There are now " + taskList.size() + " task(s) in the list.");
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -28,7 +31,11 @@ public class TaskList {
      * @param item task to be added
      */
     public void fileAddItem(Task item) {
-        taskList.add(item);
+        try {
+            taskList.add(item);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -109,14 +116,13 @@ public class TaskList {
      * @return status of update
      */
     public String updateDescription(int index, String newDescription) {
-        boolean isValidIndex = index > 0 && index <= taskList.size();
-        if (!isValidIndex) {
-            return "Invalid index!\n";
+        try {
+            Task task = this.getTask(index);
+            task.setDescription(newDescription);
+            return "Updated description:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            return e.getMessage();
         }
-
-        Task task = taskList.get(index - 1);
-        task.setDescription(newDescription);
-        return "Updated description:\n" + task + "\n";
     }
 
     /**
@@ -126,18 +132,16 @@ public class TaskList {
      * @return status of update
      */
     public String updateDeadline(int index, LocalDate newDueDate) {
-        boolean isValidIndex = index > 0 && index <= taskList.size();
-        if (!isValidIndex) {
-            return "Invalid index!\n";
+        try {
+            Task task = this.getTask(index);
+            if ( !(task instanceof Deadline deadline)) {
+                return "Task at index " + index + " is not a deadline!\n";
+            }
+            deadline.setDueDate(newDueDate);
+            return "Updated deadline:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            return e.getMessage();
         }
-
-        Task task = taskList.get(index - 1);
-        if ( !(task instanceof Deadline deadline)) {
-            return "Task at index " + index + " is not a deadline!\n";
-        }
-
-        deadline.setDueDate(newDueDate);
-        return "Updated deadline:\n" + task + "\n";
     }
 
     /**
@@ -148,26 +152,24 @@ public class TaskList {
      * @return status of update
      */
     public String updateEvent(int index, LocalDate newStartDate, LocalDate newEndDate) {
-        boolean isValidIndex = index > 0 && index <= taskList.size();
-        if (!isValidIndex) {
-            return "Invalid index!\n";
+        try {
+            Task task = this.getTask(index);
+            if ( !(task instanceof Event event)) {
+                return "Task at index " + index + " is not an event!\n";
+            }
+            event.setStartDate(newStartDate);
+            event.setEndDate(newEndDate);
+            return "Updated event:\n" + task + "\n";
+        } catch (IndexOutOfBoundsException e) {
+            return e.getMessage();
         }
-
-        Task task = taskList.get(index - 1);
-        if ( !(task instanceof Event event)) {
-            return "Task at index " + index + " is not an event!\n";
-        }
-
-        event.setStartDate(newStartDate);
-        event.setEndDate(newEndDate);
-        return "Updated event:\n" + task + "\n";
     }
 
-    /**
-     * Pretty print function
-     */
-    public String printList() {
-        return(this.toString());
+    private Task getTask(int index) {
+        if (index <= 0 || index > taskList.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index: " + index);
+        }
+        return taskList.get(index - 1);
     }
 
     /**

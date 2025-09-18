@@ -11,14 +11,18 @@ public class Event extends Task {
     LocalDate endDate;
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-    public Event(String description, LocalDate startDate, LocalDate endDate) {
-        super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public Event(String description, LocalDate startDate, LocalDate endDate) throws IllegalArgumentException{
+        this(description, false, startDate, endDate);
     }
 
-    public Event(String description, boolean complete, LocalDate startDate, LocalDate endDate) {
+    public Event(String description, boolean complete, LocalDate startDate, LocalDate endDate) throws IllegalArgumentException{
         super(description, complete);
+        if (startDate == null || endDate == null) {
+            throw new IllegalArgumentException("Event dates cannot be null.");
+        }
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Event end date cannot be before start date.");
+        }
         this.startDate = startDate;
         this.endDate = endDate;
     }

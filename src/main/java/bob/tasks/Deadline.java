@@ -10,13 +10,15 @@ public class Deadline extends Task {
     LocalDate dueDate;
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-    public Deadline(String description, LocalDate dueDate) {
-        super(description);
-        this.dueDate = dueDate;
+    public Deadline(String description, LocalDate dueDate) throws IllegalArgumentException {
+        this(description, false, dueDate);
     }
 
-    public Deadline(String description, boolean complete, LocalDate dueDate) {
+    public Deadline(String description, boolean complete, LocalDate dueDate) throws IllegalArgumentException {
         super(description, complete);
+        if (dueDate == null) {
+            throw new IllegalArgumentException("Deadline date cannot be null.");
+        }
         this.dueDate = dueDate;
     }
 

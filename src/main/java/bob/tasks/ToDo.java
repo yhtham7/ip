@@ -4,11 +4,11 @@ package bob.tasks;
  * Represents a simple "to do" task.
  */
 public class ToDo extends Task {
-    public ToDo(String description) {
+    public ToDo(String description) throws IllegalArgumentException{
         super(description);
     }
 
-    public ToDo(String description, boolean complete) {
+    public ToDo(String description, boolean complete) throws IllegalArgumentException{
         super(description, complete);
     }
 
