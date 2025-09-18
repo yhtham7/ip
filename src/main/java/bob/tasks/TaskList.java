@@ -13,7 +13,7 @@ public class TaskList {
     /**
      * Adds Task item to list
      * Prints confirmation message
-     * @param item
+     * @param item task to be added
      */
     public String addItem(Task item) {
         taskList.add(item);
@@ -25,7 +25,7 @@ public class TaskList {
     /**
      * Adds Task item to list
      * No message printed
-     * @param item
+     * @param item task to be added
      */
     public void fileAddItem(Task item) {
         taskList.add(item);
@@ -33,7 +33,7 @@ public class TaskList {
 
     /**
      * Marks item at index as complete
-     * @param index
+     * @param index tasked to be marked
      */
     public String markItem(int index) {
         boolean isValidIndex = index > 0 && index <= taskList.size();
@@ -49,7 +49,7 @@ public class TaskList {
 
     /**
      * Marks item at index as not complete
-     * @param index
+     * @param index task to be unmarked
      */
     public String unmarkItem(int index) {
         boolean isValidIndex = index > 0 && index <= taskList.size();
@@ -65,7 +65,7 @@ public class TaskList {
 
     /**
      * Removes Task item at index form list
-     * @param index
+     * @param index tasked to be deleted
      */
     public String deleteItem(int index) {
         boolean isValidIndex = index > 0 && index <= taskList.size();
@@ -81,7 +81,7 @@ public class TaskList {
 
     /**
      * Prints a list of tasks that contain provided query
-     * @param query
+     * @param query string to be matched with
      */
     public String findTask(String query) {
         int length = taskList.size();

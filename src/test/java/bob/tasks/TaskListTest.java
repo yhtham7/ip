@@ -16,6 +16,6 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         testList.fileAddItem(test);
         testList.markItem(1);
-        assertTrue(test.getCompletionStatus());
+        assertTrue(test.isComplete());
     }
 }

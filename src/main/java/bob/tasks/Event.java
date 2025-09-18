@@ -4,15 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Task event with associated start and end date
+ * Represents a task that occurs within a time range (start → end).
  */
-
 public class Event extends Task {
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
-
     LocalDate startDate;
     LocalDate endDate;
+    private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.startDate = startDate;
@@ -27,7 +25,7 @@ public class Event extends Task {
 
     @Override
     protected String getTaskType() {
-        return "Event";
+        return "E";
     }
 
     public void setStartDate(LocalDate startDate) {
@@ -44,13 +42,21 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return super.toFileString() + " /from " + this.startDate
-                + " /to " + this.endDate;
+        return String.format("%s /done %d /des %s /from %s /to %s",
+                getTaskType(),
+                isComplete() ? 1 : 0,
+                getDescription(),
+                startDate,
+                endDate
+        );
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (from: " + this.startDate.format(DATE_PRINT_FORMAT)
-                + " to: " + this.endDate.format(DATE_PRINT_FORMAT) + ")";
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                startDate.format(DATE_PRINT_FORMAT),
+                endDate.format(DATE_PRINT_FORMAT)
+        );
     }
 }

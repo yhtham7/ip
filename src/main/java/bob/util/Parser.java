@@ -21,7 +21,7 @@ public class Parser {
 
     /**
      * Takes in a String input and parses it to execute the correct action
-     * @param input String to be parse
+     * @param input String to be parsed
      * @param tasks TaskList to be modified
      */
     public static String parseInput(String input, TaskList tasks) {
@@ -34,7 +34,7 @@ public class Parser {
                 return("Usage: mark <index>");
             }
             try {
-                int index = Integer.valueOf(parts[1]);
+                int index = Integer.parseInt(parts[1]);
                 return(tasks.markItem(index));
             } catch (NumberFormatException e) {
                 return("Type in a number in the range");
@@ -45,7 +45,7 @@ public class Parser {
                 return("Usage: unmark <index>");
             }
             try {
-                int index = Integer.valueOf(parts[1]);
+                int index = Integer.parseInt(parts[1]);
                 return(tasks.unmarkItem(index));
             } catch (NumberFormatException e) {
                 return("Type in a number in the range");
@@ -107,7 +107,7 @@ public class Parser {
                 return("Usage: delete <index>");
             }
             try {
-                int index = Integer.valueOf(parts[1]);
+                int index = Integer.parseInt(parts[1]);
                 return(tasks.deleteItem(index));
             } catch (NumberFormatException e) {
                 return("Type in a number in the range");
@@ -171,10 +171,12 @@ public class Parser {
             }
 
         } else {
-            return("Usage:\n"
-                    + "update <index> /des <new description>\n"
-                    + "update <index> /by <new deadline>\n"
-                    + "update <index> /from <new start> /to <new end>\n");
+            return("""
+                    Usage:
+                    update <index> /des <new description>
+                    update <index> /by <new deadline>
+                    update <index> /from <new start> /to <new end>
+                    """);
         }
     }
 }

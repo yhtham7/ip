@@ -4,14 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Task Deadline with an associated by date
+ * Represents a task with a deadline.
  */
-
 public class Deadline extends Task {
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate dueDate;
     private static final DateTimeFormatter DATE_PRINT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-    LocalDate dueDate;
     public Deadline(String description, LocalDate dueDate) {
         super(description);
         this.dueDate = dueDate;
@@ -24,7 +22,7 @@ public class Deadline extends Task {
 
     @Override
     protected String getTaskType() {
-        return "Deadline";
+        return "D";
     }
 
     public void setDueDate(LocalDate newDueDate) {
@@ -37,11 +35,19 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return super.toFileString() + " /by " + this.dueDate;
+        return String.format("%s /done %d /des %s /by %s",
+                getTaskType(),
+                isComplete() ? 1 : 0,
+                getDescription(),
+                dueDate
+        );
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueDate.format(DATE_PRINT_FORMAT) + ")";
+        return String.format("[D]%s (by: %s)",
+                super.toString(),
+                dueDate.format(DATE_PRINT_FORMAT)
+        );
     }
 }

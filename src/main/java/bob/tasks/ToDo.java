@@ -1,7 +1,7 @@
 package bob.tasks;
 
 /**
- * Task "to do"
+ * Represents a simple "to do" task.
  */
 public class ToDo extends Task {
     public ToDo(String description) {
@@ -13,12 +13,12 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    protected String getTaskType() {
+        return "T";
     }
 
     @Override
-    protected String getTaskType() {
-        return "Todo";
+    public String toString() {
+        return "[T]" + super.toString();
     }
 }

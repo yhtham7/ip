@@ -37,7 +37,8 @@ public class Storer {
 
         File parentFolder = this.file.getParentFile();
         if (parentFolder != null && !parentFolder.exists()) {
-            boolean created = parentFolder.mkdirs();
+            boolean dirCreated = parentFolder.mkdirs();
+            assert dirCreated: "directory should have been created";
         }
 
         if (!this.file.exists()) {
@@ -84,19 +85,8 @@ public class Storer {
                 String command = parts[0].toLowerCase();
 
                 switch (command) {
-                case ("task"): {
-                    Pattern p = Pattern.compile("^Task /done (\\d) /des (.+)$");
-                    Matcher m = p.matcher(line);
-                    if (!m.matches()) {
-                        throw new InvalidDataFormatException("Invalid Task format: " + line);
-                    }
-                    boolean isDone = m.group(1).equals("1");
-                    String desc = m.group(2);
-                    taskList.fileAddItem(new Task(desc, isDone));
-                    break;
-                }
-                case ("todo"): {
-                    Pattern p = Pattern.compile("^Todo /done (\\d) /des (.+)$");
+                case ("t"): {
+                    Pattern p = Pattern.compile("^T /done (\\d) /des (.+)$");
                     Matcher m = p.matcher(line);
                     if (!m.matches()) {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
@@ -106,8 +96,8 @@ public class Storer {
                     taskList.fileAddItem(new ToDo(desc, isDone));
                     break;
                 }
-                case ("deadline"): {
-                    Pattern p = Pattern.compile("^Deadline /done (\\d) /des (.+) /by (.+)$");
+                case ("d"): {
+                    Pattern p = Pattern.compile("^D /done (\\d) /des (.+) /by (.+)$");
                     Matcher m = p.matcher(line);
                     if (!m.matches()) {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
@@ -123,8 +113,8 @@ public class Storer {
                         System.out.println("Invalid date format, use yyyy-MM-dd\n");
                     }
                 }
-                case("event"): {
-                    Pattern p = Pattern.compile("^Event /done (\\d) /des (.+) /from (.+) /to (.+)$");
+                case("e"): {
+                    Pattern p = Pattern.compile("^E /done (\\d) /des (.+) /from (.+) /to (.+)$");
                     Matcher m = p.matcher(line);
                     if (!m.matches()) {
                         throw new InvalidDataFormatException("Invalid Task format: " + line);
