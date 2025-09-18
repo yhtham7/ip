@@ -55,6 +55,6 @@ public class ParserTest {
     void parseInvalidCommand_returnsErrorMessage() {
         TaskList list = new TaskList();
         String response = Parser.parseInput("blah blah", list);
-        assertTrue(response.contains("blah blah"));
+        assertTrue(response.contains("blah blah\nType `help` to see available commands."));
     }
 }
