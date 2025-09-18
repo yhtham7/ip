@@ -1,6 +1,7 @@
 package bob.util;
 
-import bob.tasks.*;
+import bob.tasks.TaskList;
+import bob.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

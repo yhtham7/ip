@@ -1,7 +1,8 @@
 package bob;
 
-import bob.tasks.*;
-import bob.util.*;
+import bob.tasks.TaskList;
+import bob.util.Parser;
+import bob.util.Storer;
 
 import java.time.format.DateTimeFormatter;
 

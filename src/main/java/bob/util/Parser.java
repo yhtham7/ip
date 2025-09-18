@@ -1,6 +1,10 @@
 package bob.util;
 
-import bob.tasks.*;
+
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.TaskList;
+import bob.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
