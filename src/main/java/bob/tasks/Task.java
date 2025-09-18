@@ -14,7 +14,7 @@ public abstract class Task {
      *
      * @param description the task description
      */
-    public Task(String description) {
+    public Task(String description) throws IllegalArgumentException{
         this(description, false);
     }
 
@@ -24,7 +24,10 @@ public abstract class Task {
      * @param description the task description
      * @param isComplete  whether the task is marked complete
      */
-    public Task(String description, boolean isComplete) {
+    public Task(String description, boolean isComplete) throws IllegalArgumentException{
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("Description cannot be empty.");
+        }
         this.description = description;
         this.isComplete = isComplete;
     }
