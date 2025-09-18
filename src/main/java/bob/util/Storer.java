@@ -74,7 +74,7 @@ public class Storer {
      * @return taskList
      */
     public TaskList load(TaskList taskList) {
-        if (!this.file.exists()){
+        if (!this.file.exists()) {
             return taskList;
         }
 
@@ -85,56 +85,17 @@ public class Storer {
                 String command = parts[0].toLowerCase();
 
                 switch (command) {
-                case ("t"): {
-                    Pattern p = Pattern.compile("^T /done (\\d) /des (.+)$");
-                    Matcher m = p.matcher(line);
-                    if (!m.matches()) {
-                        throw new InvalidDataFormatException("Invalid Task format: " + line);
-                    }
-                    boolean isDone = m.group(1).equals("1");
-                    String desc = m.group(2);
-                    taskList.fileAddItem(new ToDo(desc, isDone));
+                case "t":
+                    parseToDo(line, taskList);
                     break;
-                }
-                case ("d"): {
-                    Pattern p = Pattern.compile("^D /done (\\d) /des (.+) /by (.+)$");
-                    Matcher m = p.matcher(line);
-                    if (!m.matches()) {
-                        throw new InvalidDataFormatException("Invalid Task format: " + line);
-                    }
-                    boolean isDone = m.group(1).equals("1");
-                    String desc = m.group(2);
-                    String byStr = m.group(3);
-                    try {
-                        LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
-                        taskList.fileAddItem(new Deadline(desc, isDone, byDate));
-                        break;
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format, use yyyy-MM-dd\n");
-                    }
-                }
-                case("e"): {
-                    Pattern p = Pattern.compile("^E /done (\\d) /des (.+) /from (.+) /to (.+)$");
-                    Matcher m = p.matcher(line);
-                    if (!m.matches()) {
-                        throw new InvalidDataFormatException("Invalid Task format: " + line);
-                    }
-                    boolean isDone = m.group(1).equals("1");
-                    String desc = m.group(2);
-                    String fromStr = m.group(3);
-                    String toStr = m.group(4);
-                    try {
-                        LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
-                        LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
-                        taskList.fileAddItem(new Event(desc, isDone, from, to));
-                        break;
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format, use yyyy-MM-dd\n");
-                    }
-                }
-                default: {
+                case "d":
+                    parseDeadline(line, taskList);
+                    break;
+                case "e":
+                    parseEvent(line, taskList);
+                    break;
+                default:
                     throw new InvalidDataFormatException("Invalid Task format: " + line);
-                }
                 }
             }
         } catch (IOException e) {
@@ -145,4 +106,55 @@ public class Storer {
 
         return taskList;
     }
+
+
+    private void parseToDo(String line, TaskList taskList) throws InvalidDataFormatException {
+        Pattern p = Pattern.compile("^T /done (\\d) /des (.+)$");
+        Matcher m = p.matcher(line);
+        if (!m.matches()) {
+            throw new InvalidDataFormatException("Invalid Task format: " + line);
+        }
+        boolean isDone = m.group(1).equals("1");
+        String desc = m.group(2);
+        taskList.fileAddItem(new ToDo(desc, isDone));
+    }
+
+    private void parseDeadline(String line, TaskList taskList) throws InvalidDataFormatException {
+        Pattern p = Pattern.compile("^D /done (\\d) /des (.+) /by (.+)$");
+        Matcher m = p.matcher(line);
+        if (!m.matches()) {
+            throw new InvalidDataFormatException("Invalid Task format: " + line);
+        }
+        boolean isDone = m.group(1).equals("1");
+        String desc = m.group(2);
+        String byStr = m.group(3);
+
+        try {
+            LocalDate byDate = LocalDate.parse(byStr, DATE_FORMAT);
+            taskList.fileAddItem(new Deadline(desc, isDone, byDate));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format, use yyyy-MM-dd\n");
+        }
+    }
+
+    private void parseEvent(String line, TaskList taskList) throws InvalidDataFormatException {
+        Pattern p = Pattern.compile("^E /done (\\d) /des (.+) /from (.+) /to (.+)$");
+        Matcher m = p.matcher(line);
+        if (!m.matches()) {
+            throw new InvalidDataFormatException("Invalid Task format: " + line);
+        }
+        boolean isDone = m.group(1).equals("1");
+        String desc = m.group(2);
+        String fromStr = m.group(3);
+        String toStr = m.group(4);
+
+        try {
+            LocalDate from = LocalDate.parse(fromStr, DATE_FORMAT);
+            LocalDate to = LocalDate.parse(toStr, DATE_FORMAT);
+            taskList.fileAddItem(new Event(desc, isDone, from, to));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format, use yyyy-MM-dd\n");
+        }
+    }
+
 }
