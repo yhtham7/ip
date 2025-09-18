@@ -31,6 +31,10 @@ public class Deadline extends Task {
         this.dueDate = newDueDate;
     }
 
+    public LocalDate getDueDate() {
+        return this.dueDate;
+    }
+
     /**
      * Returns String format of task for storage
      * @return taskString
