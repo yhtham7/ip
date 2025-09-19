@@ -50,16 +50,18 @@ public class MainWindow extends AnchorPane {
             return;
         }
         String response = bob.getResponse(input);
+        if (bob.isFinished()) {
+            Platform.exit();
+            return;
+        }
+
         assert !response.isEmpty() : "response should not be empty";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
-
-        if (bob.isFinished()) {
-            Platform.exit();
-        }
     }
 
     public void showWelcome(String message) {
